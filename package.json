@@ -1,0 +1,32 @@
+{
+  "name": "utilizecore Coding Round",
+  "version": "1.0.0",
+  "description": "Learning task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -r esm ./src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-sanitizer": "^1.0.6",
+    "express-session": "^1.17.3",
+    "helmet": "^6.0.1",
+    "joi": "^17.7.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.28.0",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "nodemon": "^2.0.20"
+  }
+}
