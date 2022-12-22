@@ -1,4 +1,4 @@
-export let sanitize = function (ignore =['name']) {
+export let sanitize = function (ignore =['name', 'option', 'start', 'end']) {
     return(req, res, next) => {
         let data = [];
         if (req.body) {

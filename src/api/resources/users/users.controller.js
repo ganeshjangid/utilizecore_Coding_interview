@@ -20,5 +20,18 @@ export default {
             Logger.error("Error in saveCustomerDetails ==>" + error);
             sendError(req, res, ResMessage.ERROR, error.status || HttpResCode[500])
         }
+    },
+    async getAllUserDetails(req, res) {
+        Logger.info('== Start getAllUserDetails service==');
+        try {
+            const list = await db.tbl_users.findAll({
+                attributes: ['id', 'user_name', 'email_id', 'createdAt']
+            });
+            return sendSuccess(req, res, ResMessage.SUCCESS, list, HttpResCode[200]);
+
+        } catch (error) {
+            Logger.error("Error in getAllUserDetails service ==>" + error);
+            sendError(req, res, ResMessage.ERROR, HttpResCode[500])
+        }
     }
 }

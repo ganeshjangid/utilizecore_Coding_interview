@@ -1,0 +1,12 @@
+import express from 'express';
+import {sanitize} from '../../../middleware/sanitizer';
+import chatGroupController from './chatGroup.controller';
+import {validateBody, schemas} from '../../../middleware/validator';
+const chatGroupRouter = express.Router();
+chatGroupRouter.route('/create').post(sanitize(), validateBody(schemas.createChatGroupSchema), chatGroupController.createChatGroup);
+chatGroupRouter.route('/update').put(sanitize(), validateBody(schemas.updateChatGroupSchema), chatGroupController.updateChatGroup);
+chatGroupRouter.route('/member_assign').post(sanitize(), validateBody(schemas.memberAssignGroupSchema), chatGroupController.memberAssignChatGroup);
+chatGroupRouter.route('/get_details').get(sanitize(), chatGroupController.getAllGroupDetails);
+chatGroupRouter.route('/message_send').post(sanitize(), validateBody(schemas.sendMessageGroupSchema), chatGroupController.sendMessageChatGroup);
+chatGroupRouter.route('/message_get').get(sanitize(), chatGroupController.getAllGroupMessageDetails);
+export default chatGroupRouter;

@@ -32,7 +32,33 @@ export let schemas = {
             name: Joi.string().required().error(new Error('Please Enter Name!')),
             email_id: Joi.string().email().required().error(new Error('Please Enter Email Id!'))
         }
+    ),
+    createChatGroupSchema: Joi.object().keys(
+        {
+            name: Joi.string().required().error(new Error('Please Enter Name!')),
+            owner_id: Joi.number().required().error(new Error('Please Enter Owner Id!'))
+        }
+    ),
+    updateChatGroupSchema: Joi.object().keys(
+        {
+            name: Joi.string().required().error(new Error('Please Enter Name!')),
+            owner_id: Joi.number().required().error(new Error('Please Enter Owner Id!')),
+            group_id: Joi.number().required().error(new Error('Please Enter Group Id!'))
+        }
+    ),
+    memberAssignGroupSchema: Joi.object().keys(
+        {
+            user_id: Joi.number().required().error(new Error('Please Enter User Id!')),
+            chat_group_id: Joi.number().required().error(new Error('Please Enter Group Id!'))
+        }
+    ),
+    sendMessageGroupSchema: Joi.object().keys(
+        {
+            user_id: Joi.number().required().error(new Error('Please Enter User Id!')),
+            group_id: Joi.number().required().error(new Error('Please Enter Group Id!')),
+            text: Joi.string().required(),
+            option: Joi.string().allow('')
+        }
     )
-
 
 }

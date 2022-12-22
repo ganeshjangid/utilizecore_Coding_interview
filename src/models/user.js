@@ -22,9 +22,12 @@ module.exports = (sequelize, Sequelize) => {
             },
         ]
     });
-    user_details.associate = function (models) {
-        // associations can be defined here
-        // models.tbl_cust_details.hasMany(models.tbl_other_service_orders, { foreignKey: 'mobile_no' });
+    user_details.associate = function (models) { // associations can be defined here
+        models.tbl_users.hasMany(models.tbl_chat_groups, {
+            as: "user_details",
+            foreignKey: "owner"
+        });
+
     };
     return user_details;
 };

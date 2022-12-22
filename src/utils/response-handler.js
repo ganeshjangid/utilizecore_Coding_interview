@@ -1,3 +1,4 @@
+import Logger from "./winston-logger";
 const responseOriginCros = (req, res) => { // Website you wish to allow to connect
     const origin = req.header('Origin');
     res.header('Access-Control-Allow-Origin', origin);
@@ -16,6 +17,7 @@ export const sendError = (req, res, message, code) => {
         message: message,
         data: {}
     };
+    Logger.error('== End service==');
     return res.status(code).json(result);
 };
 
@@ -26,5 +28,6 @@ export const sendSuccess = function (req, res, message, data, code) { // Success
         message: message,
         data: data
     };
+    Logger.info('== End service==');
     return res.status(code).json(result);
 };
