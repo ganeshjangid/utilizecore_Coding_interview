@@ -4,6 +4,10 @@ import {ResMessage} from '../../../utils/res.message';
 import {HttpResCode} from '../../../utils/http-res-code';
 import {db} from '../../../models';
 
+// Pagination Details for all pages
+let per_page = 3;
+let sort = ['createdAt', 'DESC'];
+
 export default {
     async saveUserDetails(req, res, next) {
         const {name, email_id} = req.body;
@@ -24,8 +28,14 @@ export default {
     async getAllUserDetails(req, res) {
         Logger.info('== Start getAllUserDetails service==');
         try {
+            let start_page = req.query.start_page || 1;
             const list = await db.tbl_users.findAll({
-                attributes: ['id', 'user_name', 'email_id', 'createdAt']
+                attributes: [
+                    'id', 'user_name', 'email_id', 'createdAt'
+                ],
+                order: [sort],
+                limit: per_page,
+                offset: (start_page - 1) * per_page
             });
             return sendSuccess(req, res, ResMessage.SUCCESS, list, HttpResCode[200]);
 

@@ -1,0 +1,903 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Utilizecore Coding Round",
+        "description": "utilizecore Coding Round Task to completed",
+        "contact": {
+            "email": "webdeveloper.ganesh@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3005/api/",
+            "description": "Local URL"
+        },
+        {
+            "url": "https://production.utilizecore.com/api/",
+            "description": "production URL"
+        },
+        {
+            "url": "https://test.utilizecore.com/api/",
+            "description": "Test URL"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Users",
+            "description": "All Apis related to Users screen"
+        },
+        {
+            "name": "chat_group",
+            "description": "All Apis related to Chat Group screen"
+        },
+        {
+            "name": "analytics",
+            "description": "All Apis related to Analytics screen"
+        }
+    ],
+    "paths": {
+        "/users/sign_up": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Sign Up Users",
+                "description": "This Webservice is used to Sign Up user\n",
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "description": "Save User Details",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserSaveRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UserSaveSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "invalid parameter",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/InValidParameter"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/get_details": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get User Details in Pagination",
+                "description": "This Webservice is used to get Get all User Details who registered",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "start_page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/getUserDetails"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chat/group/create": {
+            "post": {
+                "tags": [
+                    "chat_group"
+                ],
+                "summary": "Create Chat Group",
+                "description": "This Webservice is used to Anyone can create a chat group. By default, the creator is a member\n",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createChatGroup"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "category1": {
+                                        "summary": "Group Created Successfully",
+                                        "value": {
+                                            "type": "success",
+                                            "message": "Group Created Successfully",
+                                            "data": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chat/group/update": {
+            "put": {
+                "tags": [
+                    "chat_group"
+                ],
+                "summary": "Update chat groups",
+                "description": "This Webservice is used to update Only the owner can update a chat group.\n",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/chatGroupUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "category1": {
+                                        "summary": "Group Updated Successfully",
+                                        "value": {
+                                            "type": "success",
+                                            "message": "Group Updated Successfully",
+                                            "data": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chat/group/member_assign": {
+            "post": {
+                "tags": [
+                    "chat_group"
+                ],
+                "summary": "Add member to Chat Group",
+                "description": "This Webservice is used to add Member to Chat Group \n",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/addChatGroup"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/SuccessMemberAdd"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chat/group/get_details": {
+            "get": {
+                "tags": [
+                    "chat_group"
+                ],
+                "summary": "Get chat groups",
+                "description": "This Webservice is used to get Only users who are part of a chat group can get a chat group",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "chat_group_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/getGroupDetails"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chat/group//message_send": {
+            "post": {
+                "tags": [
+                    "chat_group"
+                ],
+                "summary": "Send Message to the Chat Group",
+                "description": "This Webservice is used to send Message to the Chat Group \n",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendMsgChatGroup"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "category1": {
+                                        "summary": "Group Message Send Successfully",
+                                        "value": {
+                                            "type": "success",
+                                            "message": "Group Message Send Successfully",
+                                            "data": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chat/group/message_get": {
+            "get": {
+                "tags": [
+                    "chat_group"
+                ],
+                "summary": "Get chat groups Message for User",
+                "description": "This Webservice is used to get Get all messages for a chat group. Users can only get messages if they are a member of the chat group",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "user_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "start_page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/getAllMsgGroupDetails"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/analytics/top_5_message": {
+            "get": {
+                "tags": [
+                    "analytics"
+                ],
+                "summary": "Get Top 5 Message send in group",
+                "description": "This Webservice is used to get the chat name and the # of messages ",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/getTop5MsgDetails"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/analytics/top_5_user_most_msg_send": {
+            "get": {
+                "tags": [
+                    "analytics"
+                ],
+                "summary": "Get Top 5 User Most Send Message in Group",
+                "description": "This Webservice is used to get Top 5 User Most Send Message in Group ",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/getTop5UserDetails"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/analytics/top_user_most_msg_send_date_range": {
+            "get": {
+                "tags": [
+                    "analytics"
+                ],
+                "summary": "Get Top 5 User Most Send Message in Group with Date Rang",
+                "description": "This Webservice is used to get Top 5 Send Message in Group with Date Rang",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "start",
+                        "schema": {
+                            "type": "date",
+                            "pattern": "/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/",
+                            "example": "2022-12-01 00:00:01"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "end",
+                        "schema": {
+                            "type": "date",
+                            "pattern": "/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/",
+                            "example": "2022-12-30 23:59:59"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/getTop5UserDetails"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/UnExpectionError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "UserSaveRequest": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "email_id"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email_id": {
+                        "type": "string",
+                        "example": "abc@xyz.com"
+                    }
+                }
+            },
+            "createChatGroup": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "owner_id"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "owner_id": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "chatGroupUpdate": {
+                "type": "object",
+                "required": [
+                    "owner_id",
+                    "group_id",
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "owner_id": {
+                        "type": "number"
+                    },
+                    "group_id": {
+                        "type": "number"
+                    }
+                }
+            },
+            "addChatGroup": {
+                "type": "object",
+                "required": [
+                    "user_id",
+                    "chat_group_id"
+                ],
+                "properties": {
+                    "chat_group_id": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "sendMsgChatGroup": {
+                "type": "object",
+                "required": [
+                    "user_id",
+                    "group_id",
+                    "text"
+                ],
+                "properties": {
+                    "required": {
+                        "type": "integer"
+                    },
+                    "group_id": {
+                        "type": "integer"
+                    },
+                    "text": {
+                        "type": "string"
+                    },
+                    "option": {
+                        "type": "integer",
+                        "example": "send"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "UserSaveSuccess": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "User Registered Successfully"
+                },
+                "data": {
+                    "type": "object",
+                    "example": "{}"
+                }
+            }
+        },
+        "getUserDetails": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Success"
+                },
+                "data": {
+                    "type": "object",
+                    "example": [
+                        {
+                            "id": "integer",
+                            "user_name": "string",
+                            "email_id": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        "UnExpectionError": {
+            "type": "object",
+            "properties": {
+                "types": {
+                    "type": "string",
+                    "example": "failed"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Technical issue, please try again!"
+                },
+                "data": {
+                    "type": "array",
+                    "example": {}
+                }
+            }
+        },
+        "InValidParameter": {
+            "type": "object",
+            "properties": {
+                "types": {
+                    "type": "string",
+                    "example": "failed"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Please Enter Name!/Please Enter Email Id!"
+                },
+                "data": {
+                    "type": "array",
+                    "example": {}
+                }
+            }
+        },
+        "NotFound": {
+            "type": "object",
+            "properties": {
+                "types": {
+                    "type": "string",
+                    "example": "failed"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "User does not exist!"
+                },
+                "data": {
+                    "type": "array",
+                    "example": {}
+                }
+            }
+        },
+        "NotFoundGroup": {
+            "type": "object",
+            "properties": {
+                "types": {
+                    "type": "string",
+                    "example": "failed"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "User does not exist!"
+                },
+                "data": {
+                    "type": "array",
+                    "example": {}
+                }
+            }
+        },
+        "SuccessMemberAdd": {
+            "type": "object",
+            "properties": {
+                "types": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Member Assign To Group"
+                },
+                "data": {
+                    "type": "object",
+                    "example": {
+                        "id": "integer",
+                        "user_id": "integer",
+                        "chat_group_id": "integer",
+                        "updatedAt": "string",
+                        "createdAt": "string"
+                    }
+                }
+            }
+        },
+        "getGroupDetails": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Success"
+                },
+                "data": {
+                    "type": "object",
+                    "example": [
+                        {
+                            "name": "string",
+                            "createdAt": "string",
+                            "user_details": {
+                                "user_name": "string"
+                            },
+                            "chat_group_details": {
+                                "user_id": "integer"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "getAllMsgGroupDetails": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Success"
+                },
+                "data": {
+                    "type": "object",
+                    "example": [
+                        {
+                            "id": "integer",
+                            "user_id": "integer",
+                            "chat_group_id": "integer",
+                            "message": "string",
+                            "sender_receiver": "string",
+                            "createdAt": "string"
+                        },
+                        {
+                            "id": "integer",
+                            "user_id": "integer",
+                            "chat_group_id": "integer",
+                            "message": "string",
+                            "sender_receiver": "string",
+                            "createdAt": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        "getTop5MsgDetails": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Success"
+                },
+                "data": {
+                    "type": "object",
+                    "example": [
+                        {
+                            "message": "string",
+                            "total_count": "integer"
+                        },
+                        {
+                            "message": "string",
+                            "total_count": "integer"
+                        }
+                    ]
+                }
+            }
+        },
+        "getTop5UserDetails": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Success"
+                },
+                "data": {
+                    "type": "object",
+                    "example": [
+                        {
+                            "chat_group_id": "string",
+                            "total_count": "integer",
+                            "user_id": "integer"
+                        },
+                        {
+                            "chat_group_id": "string",
+                            "total_count": "integer",
+                            "user_id": "integer"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

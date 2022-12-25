@@ -4,6 +4,9 @@ import {ResMessage} from '../../../utils/res.message';
 import {HttpResCode} from '../../../utils/http-res-code';
 import {db} from '../../../models';
 
+// Pagination Details for all pages
+let per_page = 5;
+let sort = ['createdAt', 'DESC'];
 export default {
     async createChatGroup(req, res) {
         const {name, owner_id} = req.body;
@@ -181,6 +184,7 @@ export default {
     async getAllGroupMessageDetails(req, res) {
         Logger.info('== Start getAllGroupMessageDetails service==');
         try {
+            let start_page = req.query.start_page || 1;
             const list = await db.tbl_group_message.findAll({
                 attributes: [
                     'id',
@@ -189,7 +193,10 @@ export default {
                     'message',
                     'sender_receiver',
                     'createdAt'
-                ]
+                ],
+                order: [sort],
+                limit: per_page,
+                offset: (start_page - 1) * per_page
             });
             return sendSuccess(req, res, ResMessage.SUCCESS, list, HttpResCode[200]);
 

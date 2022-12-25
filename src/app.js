@@ -9,7 +9,7 @@ import helmet from 'helmet';
 import fs from 'fs';
 import cors from 'cors';
 import {restRouter} from './api';
-// import oneApiSwagger from '../one-api-swagger';
+import oneApiSwagger from '../one-api-swagger';
 import {db} from './models';
 import Logger from './utils/winston-logger';
 
@@ -40,7 +40,7 @@ export default {
         app.use('/api', restRouter);
 
         /* Swagger or OneAPI Document */
-        // app.use('/api-docs', oneApiSwagger);
+        app.use('/api-docs', oneApiSwagger);
 
         /* Database Connection */
         db.sequelize.authenticate().then(function () {
