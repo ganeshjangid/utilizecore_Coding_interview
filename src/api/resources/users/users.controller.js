@@ -3,10 +3,22 @@ import {sendError, sendSuccess} from '../../../utils/response-handler';
 import {ResMessage} from '../../../utils/res.message';
 import {HttpResCode} from '../../../utils/http-res-code';
 import {db} from '../../../models';
+import config from '../../../config';
 
 // Pagination Details for all pages
 let per_page = 3;
 let sort = ['createdAt', 'DESC'];
+
+// JWT Token Generate
+import JWT from 'jsonwebtoken';
+let JWTSign = function (user, date) {
+    return JWT.sign({
+        iss: config.app.name,
+        sub: user.id,
+        iat: date.getTime(),
+        exp: new Date().setMinutes(date.getMinutes() + 30)
+    }, config.app.secret);
+}
 
 export default {
     async saveUserDetails(req, res, next) {
@@ -29,7 +41,7 @@ export default {
         Logger.info('== Start getAllUserDetails service==');
         try {
             let start_page = req.query.start_page || 1;
-            const list = await db.tbl_users.findAll({
+            let list = await db.tbl_users.findAll({
                 attributes: [
                     'id', 'user_name', 'email_id', 'createdAt'
                 ],
@@ -37,7 +49,14 @@ export default {
                 limit: per_page,
                 offset: (start_page - 1) * per_page
             });
-            return sendSuccess(req, res, ResMessage.SUCCESS, list, HttpResCode[200]);
+
+            // Generate JWT Token
+            let date = new Date();
+            let token = JWTSign(list[0], date);
+            return sendSuccess(req, res, ResMessage.SUCCESS, {
+                list: list,
+                token: token
+            }, HttpResCode[200]);
 
         } catch (error) {
             Logger.error("Error in getAllUserDetails service ==>" + error);
