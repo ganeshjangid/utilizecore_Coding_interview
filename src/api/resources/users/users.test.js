@@ -1,7 +1,7 @@
 import 'dotenv/config';
 const request = require('supertest');
-import config from "../../src/config";
-import appManager from "../../src/app";
+import config from "../../../config";
+import appManager from "../../../app";
 const app = appManager.setup(config);
 
 describe("User Sign Up and User details API tests ", () => {
